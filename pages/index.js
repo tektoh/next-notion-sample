@@ -46,28 +46,28 @@ const loadCachedPageChunk = async (time, cursor, chunkNumber, spaceId = null) =>
     return res.json()
   });
 
-  if (pageChunk.cursor ? pageChunk.cursor.stack ? pageChunk.cursor.stack.length : false : false) {
-    const { recordMap: nextPageRecordMap } = await loadCachedPageChunk(
-        time,
-        pageChunk.cursor,
-        chunkNumber + 1,
-        pageChunk.recordMap.block[NOTION_PAGE_ID].value.space_id
-    );
-    if (nextPageRecordMap) {
-      pageChunk.recordMap.block = {
-        ...pageChunk.recordMap.block,
-        ...(nextPageRecordMap.block || {})
-      };
-      pageChunk.recordMap.collection = {
-        ...(pageChunk.recordMap.collection || {}),
-        ...(nextPageRecordMap.collection || {}),
-      };
-      pageChunk.recordMap.collection_view = {
-        ...(pageChunk.recordMap.collection_view || {}),
-        ...(nextPageRecordMap.collection_view || {}),
-      };
-    }
-  }
+  // if (pageChunk.cursor && pageChunk.cursor.stack && pageChunk.cursor.stack.length) {
+  //   const { recordMap: nextPageRecordMap } = await loadCachedPageChunk(
+  //       time,
+  //       pageChunk.cursor,
+  //       chunkNumber + 1,
+  //       pageChunk.recordMap.block[NOTION_PAGE_ID].value.space_id
+  //   );
+  //   if (nextPageRecordMap) {
+  //     pageChunk.recordMap.block = {
+  //       ...pageChunk.recordMap.block,
+  //       ...(nextPageRecordMap.block || {})
+  //     };
+  //     pageChunk.recordMap.collection = {
+  //       ...(pageChunk.recordMap.collection || {}),
+  //       ...(nextPageRecordMap.collection || {}),
+  //     };
+  //     pageChunk.recordMap.collection_view = {
+  //       ...(pageChunk.recordMap.collection_view || {}),
+  //       ...(nextPageRecordMap.collection_view || {}),
+  //     };
+  //   }
+  // }
 
   return pageChunk;
 }
